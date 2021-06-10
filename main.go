@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"os"
+	"strings"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -81,10 +83,14 @@ func main() {
 	app := fiber.New()
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World 👋!")
+		return c.SendStatus(200)
 	})
 
 	app.Post("/pin", CheckAvailability)
 
-	app.Listen(":3000")
+	if strings.Compare(os.Getenv("PRODUCTION"), "true") == 0 {
+		app.Listen(":80")
+	} else {
+		app.Listen(":3000")
+	}
 }
