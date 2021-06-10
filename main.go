@@ -89,7 +89,7 @@ func main() {
 	app.Post("/pin", CheckAvailability)
 
 	if strings.Compare(os.Getenv("PRODUCTION"), "true") == 0 {
-		app.Listen(":80")
+		app.Listen(":8080")
 	} else {
 		app.Listen(":3000")
 	}
