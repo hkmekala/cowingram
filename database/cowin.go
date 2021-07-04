@@ -74,6 +74,7 @@ func CheckAvailability(c *fiber.Ctx) error {
 			response.Sessions[i].AvailableCapacityDoes2, response.Sessions[i].Vaccine, response.Sessions[i].FeeType)
 	}
 
+	//Sending the response if the sessions are not available for a particular center_id.
 	if len(response.Sessions) == 0 {
 		fmt.Fprintf(&buffer, "There are currently no vaccine slots "+
 			"available to us, please check with https://cowin.gov.in site.")
