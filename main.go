@@ -10,9 +10,13 @@ import (
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Panic("cowingram: error loading the environment")
+
+	if !(strings.Compare(os.Getenv("PRODUCTION"), "true") == 0) {
+		err := godotenv.Load()
+
+		if err != nil {
+			log.Panic("cowingram: error loading the environment")
+		}
 	}
 
 	app := fiber.New()
@@ -24,7 +28,10 @@ func main() {
 	app.Post("/pin", database.CheckAvailability)
 
 	if strings.Compare(os.Getenv("PRODUCTION"), "true") == 0 {
-		app.Listen(":8080")
+		err := app.Listen(":8080")
+		if err != nil {
+			return
+		}
 	} else {
 		err := app.Listen(":3000")
 		if err != nil {
