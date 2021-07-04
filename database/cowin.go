@@ -74,11 +74,16 @@ func CheckAvailability(c *fiber.Ctx) error {
 			response.Sessions[i].AvailableCapacityDoes2, response.Sessions[i].Vaccine, response.Sessions[i].FeeType)
 	}
 
+	if len(response.Sessions) == 0 {
+		fmt.Fprintf(&buffer, "There are currently no vaccine slots "+
+			"available to us, please check with https://cowin.gov.in site.")
+	}
+
 	responseData := buffer.String()
 	builders.SendMessage(int64(payload.Message.Chat.Id), responseData)
 	c.Send([]byte(responseData))
 
 	defer res.Body.Close()
 
-	return nil
+	return c.SendStatus(res.StatusCode)
 }
