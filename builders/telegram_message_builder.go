@@ -11,6 +11,8 @@ import (
 
 func BuildTelegramPayload() {
 
+	fmt.Println("Change")
+
 }
 
 func SendMessage(ChatId int64, Text string) bool {
