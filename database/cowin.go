@@ -87,5 +87,6 @@ func CheckAvailability(c *fiber.Ctx) error {
 
 	defer res.Body.Close()
 
-	return c.SendStatus(res.StatusCode)
+	//FIXME: We need to send the status to the Telegram but we need to send a message when the cowin API is available.
+	return c.SendStatus(200)
 }
