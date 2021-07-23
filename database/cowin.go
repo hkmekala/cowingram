@@ -29,6 +29,7 @@ func CheckAvailability(c *fiber.Ctx) error {
 	var payload models.TelegramPayload
 	body := string(c.Body())
 	fmt.Println(body)
+	fmt.Println("IP Address: " + c.IP())
 	err := json.Unmarshal([]byte(body), &payload)
 
 	if err != nil {
